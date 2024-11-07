@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Camera, LogIn, UserPlus, Upload, Menu, X, User, Settings, LogOut } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Camera, LogIn, UserPlus, Upload, Menu, X, User, Settings, LogOut, Image } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,34 +8,46 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useSettings } from '@/contexts/SettingsContext';
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const [isLogin, setIsLogin] = useState(true);
 
+  const navigate = useNavigate();
+
+  const handleNavigation = (path: string) => {
+    navigate(path);
+  };
+
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   const isLoggedIn = localStorage.getItem('token');
 
+  const { t } = useSettings();
+
   
 
   return (
-    <nav className="bg-white shadow-md">
+    <nav className="bg-white shadow-md dark:bg-[#09090b]">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center py-4">
-          <Link to="/" className="flex items-center space-x-2 text-xl font-bold text-gray-800">
+          <Link to="/" className="flex items-center space-x-2 text-xl font-bold text-gray-800 dark:text-white">
             <Camera size={28} className="text-blue-500" />
             <span>PhotoAlbum</span>
           </Link>
           
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-6">
-            <NavLink to="/gallery">Gallery</NavLink>
+            <NavLink to="/gallery">
+              <Image size={18} className="inline mr-1" />
+              {t('gallery')}
+            </NavLink>
             <NavLink to="/upload">
               <Upload size={18} className="inline mr-1" />
-              Upload
+              {t('upload')}
             </NavLink>
 
             {isLogin ? ( 
@@ -58,18 +70,31 @@ const Navbar: React.FC = () => {
                       </div>
                     </div>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem className="cursor-pointer">
+                    <DropdownMenuItem 
+                      className="cursor-pointer"
+                      onClick={() => handleNavigation('/personalPage')}
+                    >
                       <User className="mr-2 h-4 w-4" />
-                      <span>Profile</span>
+                      <span>{t('personalPage')}</span>
                     </DropdownMenuItem>
-                    <DropdownMenuItem className="cursor-pointer">
+                    <DropdownMenuItem 
+                      className="cursor-pointer"
+                      onClick={() => handleNavigation('/profile')}
+                    >
+                      <User className="mr-2 h-4 w-4" />
+                      <span>{t('Profile')}</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem 
+                      className="cursor-pointer"
+                      onClick={() => handleNavigation('/settings')}
+                    >
                       <Settings className="mr-2 h-4 w-4" />
-                      <span>Settings</span>
+                      <span>{t('Settings')}</span>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem className="cursor-pointer text-red-600 focus:text-red-600">
                       <LogOut className="mr-2 h-4 w-4" />
-                      <span>Log out</span>
+                      <span>{t('Logout')}</span>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -78,11 +103,11 @@ const Navbar: React.FC = () => {
               <>
                 <NavLink to="/login">
                   <LogIn size={18} className="inline mr-1" />
-                  Login
+                  {t('Login')}
                 </NavLink>
                 <NavLink to="/register">
                   <UserPlus size={18} className="inline mr-1" />
-                  Register
+                  {t('Register')}
                 </NavLink>
               </>
             )}
@@ -122,7 +147,7 @@ const Navbar: React.FC = () => {
 const NavLink: React.FC<{ to: string; children: React.ReactNode }> = ({ to, children }) => (
   <Link
     to={to}
-    className="text-gray-600 hover:text-blue-500 transition-colors duration-200"
+    className="text-gray-600 dark:text-white hover:text-blue-500 transition-colors duration-200"
   >
     {children}
   </Link>
