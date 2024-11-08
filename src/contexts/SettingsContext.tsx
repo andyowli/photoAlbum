@@ -62,6 +62,7 @@ export const translations = {
 
     //Gallery
     photoGallrty: "Photo Gallery",
+    search:'Search by title or description...',
 
     //Personal Page
     profilePicture: "Profile Picture",
@@ -73,6 +74,7 @@ export const translations = {
     home: "首页",
     gallery: "图库",
     Upload: "上传",
+    personalPage: "个人主页",
     profile: "个人资料",
     settings: "设置",
     login: "登录",
@@ -117,6 +119,7 @@ export const translations = {
 
     //Gallery
     photoGallrty: "图片库",
+    search:'按标题或描述搜索...',
 
     //Personal Page
     profilePicture: "个人头像",

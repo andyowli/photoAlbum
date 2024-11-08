@@ -82,19 +82,19 @@ const Navbar: React.FC = () => {
                       onClick={() => handleNavigation('/profile')}
                     >
                       <User className="mr-2 h-4 w-4" />
-                      <span>{t('Profile')}</span>
+                      <span>{t('profile')}</span>
                     </DropdownMenuItem>
                     <DropdownMenuItem 
                       className="cursor-pointer"
                       onClick={() => handleNavigation('/settings')}
                     >
                       <Settings className="mr-2 h-4 w-4" />
-                      <span>{t('Settings')}</span>
+                      <span>{t('settings')}</span>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem className="cursor-pointer text-red-600 focus:text-red-600">
                       <LogOut className="mr-2 h-4 w-4" />
-                      <span>{t('Logout')}</span>
+                      <span>{t('logout')}</span>
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -114,7 +114,7 @@ const Navbar: React.FC = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <button className="md:hidden" onClick={toggleMenu}>
+          <button className="md:hidden dark:text-white" onClick={toggleMenu}>
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
@@ -124,7 +124,10 @@ const Navbar: React.FC = () => {
       {isMenuOpen && (
         <div className="md:hidden">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <MobileNavLink to="/gallery" onClick={toggleMenu}>Gallery</MobileNavLink>
+            <MobileNavLink to="/gallery" onClick={toggleMenu}>
+              <Image size={18} className="inline mr-1" />
+              Gallery
+            </MobileNavLink>
             <MobileNavLink to="/upload" onClick={toggleMenu}>
               <Upload size={18} className="inline mr-1" />
               Upload
@@ -156,7 +159,7 @@ const NavLink: React.FC<{ to: string; children: React.ReactNode }> = ({ to, chil
 const MobileNavLink: React.FC<{ to: string; onClick: () => void; children: React.ReactNode }> = ({ to, onClick, children }) => (
   <Link
     to={to}
-    className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-500 hover:bg-gray-50 transition-colors duration-200"
+    className="dark:text-white block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-500 hover:bg-gray-50 transition-colors duration-200"
     onClick={onClick}
   >
     {children}

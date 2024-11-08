@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { X, Download, Share2, Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { useSettings } from '@/contexts/SettingsContext';
+import BackToTop from '@/components/BackTop';
 
 const Gallery: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -87,10 +88,10 @@ const Gallery: React.FC = () => {
           <Search className="dark:text-white absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
           <Input
             type="text"
-            placeholder="Search by title or description..."
+            placeholder={t('search')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-9 mb-10 dark:border-color-[#E8E8EEFF]"
+            className="pl-9 mb-10 dark:border-color-[#E8E8EEFF] dark:text-white"
           />
         </div>
       
@@ -170,6 +171,8 @@ const Gallery: React.FC = () => {
           </div>
         </div>
       )}
+
+      <BackToTop />
     </div>
   )
 }
