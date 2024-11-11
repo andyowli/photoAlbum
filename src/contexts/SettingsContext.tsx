@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+// import useProfileStore from '../store/profileStore';
 
 export type Language = 'en' | 'zh';
 export type Theme = 'light' | 'dark';
@@ -6,10 +7,10 @@ export type Theme = 'light' | 'dark';
 interface SettingsContextType {
   language: Language;
   theme: Theme;
-  isProfileVisible: boolean;
+  // isProfileVisible: boolean;
   setLanguage: (lang: Language) => void;
   setTheme: (theme: Theme) => void;
-  setProfileVisibility: (visible: boolean) => void;
+  // setProfileVisibility: (visible: boolean) => void;
   t: (key: string) => string;
 }
 
@@ -67,7 +68,16 @@ export const translations = {
     //Personal Page
     profilePicture: "Profile Picture",
     profileHidden:'This page is currently private',
-    makeProfilePublic:'The current user is hidden and cannot be viewed'
+    makeProfilePublic:'The current user is hidden and cannot be viewed',
+
+    // Login
+    accountNumber:'Username or Email',
+    password:'Password',
+    forgotPassword:'Forgot Password?',
+
+    //Register
+    username: "Username",
+    email: "Email",
   },
   zh: {
     // Navigation
@@ -124,7 +134,18 @@ export const translations = {
     //Personal Page
     profilePicture: "个人头像",
     profileHidden:'此页面当前是私人的',
-    makeProfilePublic:'当前用户已隐藏，无法查看'
+    makeProfilePublic:'当前用户已隐藏，无法查看',
+
+    // Login
+    accountNumber:'用户名或密码',
+    password:'密码',
+    forgotPassword:'忘记密码?',
+
+    //Register
+    username: "Username",
+    confirmPassword: "确认密码",
+
+
   }
 };
 
@@ -139,18 +160,21 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     return (saved as Theme) || 'light';
   });
 
-  const [isProfileVisible, setIsProfileVisible] = useState(() => {
-    const saved = localStorage.getItem('profileVisibility');
-    return saved ? JSON.parse(saved) : true;
-  });
+  // const [isProfileVisible, setIsProfileVisible] = useState(() => {
+  //   const saved = localStorage.getItem('profileVisibility');
+  //   return saved ? JSON.parse(saved) : true;
+  // });
+
+
+  
 
   useEffect(() => {
     localStorage.setItem('language', language);
   }, [language]);
 
-  useEffect(() => {
-    localStorage.setItem('profileVisibility', JSON.stringify(isProfileVisible));
-  }, [isProfileVisible]);
+  // useEffect(() => {
+  //   localStorage.setItem('profileVisibility', JSON.stringify(isProfileVisible));
+  // }, [isProfileVisible]);
 
 //   useEffect(() => {
 //     localStorage.setItem('theme', theme);
@@ -180,10 +204,10 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       value={{ 
         language, 
         theme, 
-        isProfileVisible,
+        // isProfileVisible,
         setLanguage, 
         setTheme, 
-        setProfileVisibility: setIsProfileVisible, 
+        // setProfileVisibility: setIsProfileVisible, 
         t 
       }}
     >

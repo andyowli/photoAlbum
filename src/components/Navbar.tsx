@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Camera, LogIn, UserPlus, Upload, Menu, X, User, Settings, LogOut, Image } from 'lucide-react';
 import {
@@ -13,7 +13,7 @@ import { useSettings } from '@/contexts/SettingsContext';
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
 
   const navigate = useNavigate();
 
@@ -24,11 +24,18 @@ const Navbar: React.FC = () => {
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
-  const isLoggedIn = localStorage.getItem('token');
-
   const { t } = useSettings();
 
-  
+  useEffect(() => {
+    const loginToken = localStorage.getItem('token');
+    setIsLogin(!!loginToken);
+
+    // if (loginToken) {
+    //   setIsLogin(true);
+      
+    // }
+  },[]);
+    
 
   return (
     <nav className="bg-white shadow-md dark:bg-[#09090b]">
@@ -103,11 +110,11 @@ const Navbar: React.FC = () => {
               <>
                 <NavLink to="/login">
                   <LogIn size={18} className="inline mr-1" />
-                  {t('Login')}
+                  {t('login')}
                 </NavLink>
                 <NavLink to="/register">
                   <UserPlus size={18} className="inline mr-1" />
-                  {t('Register')}
+                  {t('register')}
                 </NavLink>
               </>
             )}

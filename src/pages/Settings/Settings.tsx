@@ -13,9 +13,10 @@ import {
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { useSettings, type Language } from "@/contexts/SettingsContext";
+import { useProfileStore } from "@/store/profile";
 
 export default function Settings() {
-  const { theme, language, setTheme, setLanguage, t, isProfileVisible, setProfileVisibility } = useSettings();
+  const { theme, language, setTheme, setLanguage, t } = useSettings();
   const { toast } = useToast();
 
   const toggleTheme = () => {
@@ -39,8 +40,10 @@ export default function Settings() {
     });
   };
 
+  const { profile, setProfile } = useProfileStore();
   const handleProfileVisibilityChange = (checked: boolean) => {
-    setProfileVisibility(checked);
+    setProfile(checked);
+
     toast({
       title: t('Privacy Settings Updated'),
       description: checked 
@@ -148,7 +151,7 @@ export default function Settings() {
                 </div>
                 <Switch 
                   defaultChecked 
-                  checked={isProfileVisible}
+                  checked={profile}
                   onCheckedChange={handleProfileVisibilityChange}
                 />
               </div>

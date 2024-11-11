@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
 import { Link } from 'react-router-dom';
+import { useSettings } from '@/contexts/SettingsContext';
 
 const loginSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -13,16 +14,21 @@ const loginSchema = z.object({
 type LoginFormData = z.infer<typeof loginSchema>;
 
 const Login: React.FC = () => {
+  const { t } = useSettings();
+
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
   });
 
   const onSubmit = (data: LoginFormData) => {
     console.log('Login data:', data);
-    // Here you would typically send the data to your backend
+    
+    localStorage.setItem('token','123456');
+
+    window.location.href = '/';
   };
 
-
+  
   const images = [
     'https://picsum.photos/800/600?random=1',
     'https://picsum.photos/400/300?random=2',
@@ -67,10 +73,10 @@ const Login: React.FC = () => {
       
       {/* 登录框 */}
       <div className="w-2/5 max-md:w-4/5 mx-auto bg-[#fff] rounded-2xl p-6 z-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        <h2 className="text-3xl font-bold mb-6">Login</h2>
+        <h2 className="text-3xl font-bold mb-6">{t('login')}</h2>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 w-full">
           <div>
-            <label htmlFor="email" className="block mb-1">Email</label>
+            <label htmlFor="email" className="block mb-1">{t('accountNumber')}</label>
             <input
               type="email"
               id="email"
@@ -80,7 +86,7 @@ const Login: React.FC = () => {
             {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
           </div>
           <div>
-            <label htmlFor="password" className="block mb-1">Password</label>
+            <label htmlFor="password" className="block mb-1">{t('password')}</label>
             <input
               type="password"
               id="password"
@@ -92,12 +98,12 @@ const Login: React.FC = () => {
 
           <div className="flex justify-between items-center">
             <Link to="/forgot-password" className="text-sm text-blue-500 hover:text-blue-600">
-              Forgot Password?
+              {t('forgotPassword')}
             </Link>
           </div>
 
           <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">
-            Login
+            {t('login')}
           </button>
         </form>
       </div>
