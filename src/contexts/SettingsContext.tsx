@@ -78,6 +78,12 @@ export const translations = {
     //Register
     username: "Username",
     email: "Email",
+
+    //Home
+    welcome:'Welcome to PhotoAlbum',
+    describe:'Capture, store, and share your precious moments with ease.',
+    viewGallery:'View Gallery',
+    uploadPhotos:'Upload Photos'
   },
   zh: {
     // Navigation
@@ -145,7 +151,11 @@ export const translations = {
     username: "Username",
     confirmPassword: "确认密码",
 
-
+    //Home
+    welcome:'欢迎来到相册',
+    describe:'轻松捕捉、存储和分享您的珍贵时刻。',
+    viewGallery:'查看图库',
+    uploadPhotos:'上传照片'
   }
 };
 
